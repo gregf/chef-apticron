@@ -1,35 +1,52 @@
-#!/usr/bin/env rake
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+require 'foodcritic'
+require 'kitchen'
+require 'stove/rake_task'
 
-task :default => "foodcritic"
+# Cookbook Releases
+Stove::RakeTask.new do |stove|
+  stove.git = true
+  stove.jira = false
+  stove.changelog = false
+  stove.bump = false
+  stove.dev = false
+end
 
-desc "Runs foodcritic linter"
-task :foodcritic do
-  Rake::Task[:prepare_sandbox].execute
+# Style tests. Rubocop and Foodcritic
+namespace :style do
+  desc 'Run Ruby style checks'
+  Rubocop::RakeTask.new(:ruby)
 
-  if Gem::Version.new("1.9.2") <= Gem::Version.new(RUBY_VERSION.dup)
-    sh "foodcritic -f any #{sandbox_path}"
-  else
-    puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
+  desc 'Run Chef style checks'
+  FoodCritic::Rake::LintTask.new(:chef) do |t|
+    t.options = {
+      fail_tags: ['any'],
+      tags: []
+    }
   end
 end
 
-desc "Runs knife cookbook test"
-task :knife do
-  Rake::Task[:prepare_sandbox].execute
+desc 'Run all style checks'
+task style: ['style:chef', 'style:ruby']
 
-  sh "knife cookbook test cookbook -c .chef/knife.rb -o #{sandbox_path}/../"
+# Rspec and ChefSpec
+desc "Run ChefSpec examples"
+RSpec::Core::RakeTask.new(:spec)
+
+# Integration tests. Kitchen.ci
+namespace :integration do
+  desc 'Run Test Kitchen with Digital Ocean'
+  task :digitalocean do
+    Kitchen.logger = Kitchen.default_file_logger
+    Kitchen::Config.new.instances.each do |instance|
+      instance.test(:always)
+    end
+  end
 end
 
-task :prepare_sandbox do
-  files = %w{*.md *.rb attributes definitions libraries files providers recipes resources templates}
+desc 'Run all tests on Travis'
+task travis: ['style', 'spec']
 
-  rm_rf sandbox_path
-  mkdir_p sandbox_path
-  cp_r Dir.glob("{#{files.join(",")}}"), sandbox_path
-end
-
-private
-
-def sandbox_path
-  File.join(File.dirname(__FILE__), %w[tmp cookbooks cookbook])
-end
+# Default
+task default: ['style', 'spec', 'integration:digitalocean']
