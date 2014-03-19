@@ -20,6 +20,12 @@ group :kitchen_cloud do
 end
 
 group :development do
+  gem 'libnotify'
+  gem 'guard', '~> 2.5'
+  gem 'guard-kitchen'
+  gem 'guard-foodcritic'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
   gem 'rake'
   gem 'stove', '~> 2.0.0.beta2'
 end
