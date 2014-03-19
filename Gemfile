@@ -1,17 +1,25 @@
 source 'https://rubygems.org'
 
-gem 'foodcritic'
-gem 'rake'
-gem 'chef'
+group :lint do
+  gem 'foodcritic', '~> 3.0'
+  gem 'rubocop', '~> 0.19'
+  gem 'rainbow', '< 2.0'
+end
 
-group :integration do
-  # The integration tools are easier to run with berkshelf and strainer.
-  # However, these gems conflict with chef and should be installed into the
-  # environment with the gem command and not added to the application gem
-  # bundle.
-  #
-  # gem install berkshelf strainer
+group :unit do
+  gem 'berkshelf', '~> 3.0.0.beta7'
+  gem 'chefspec', '~> 3.4'
+end
 
-  gem 'test-kitchen', '1.0.0.beta.3'
-  gem 'kitchen-docker'
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.2'
+end
+
+group :kitchen_cloud do
+  gem 'kitchen-digitalocean'
+end
+
+group :development do
+  gem 'rake'
+  gem 'stove', '~> 2.0.0.beta2'
 end
