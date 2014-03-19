@@ -2,7 +2,11 @@
 language: ruby
 rvm:
   - 1.9.3
-bundler_args: --without integration
+  - 2.0
+  - 2.1
+bundler_args: --jobs 7
+branches:
+  only:
+    - master
 script:
-  - bundle exec rake knife
-  - bundle exec rake foodcritic
+  - bundle exec rake travis
