@@ -14,6 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['apticron']['email'] = 'root'
 default['apticron']['config_file'] = '/etc/apticron/apticron.conf'
 default['apticron']['package'] = 'apticron'
+
+default['apticron']['email'] = 'root'
+default['apticron']['diff_only'] = '1'
+default['apticron']['listchanges_profile'] = 'apticron'
+default['apticron']['all_fqdns'] = '1'
+default['apticron']['system'] = node['fqdn']
+default['apticron']['ipaddressnum'] = '1'
+default['apticron']['ipaddresses'] = nil
+default['apticron']['notify_holds'] = '0'
+default['apticron']['notify_new'] = '0'
+default['apticron']['notify_no_updates'] = '0'
+default['apticron']['custom_subject'] = nil
+default['apticron']['custom_no_updates_subject'] = nil
+default['apticron']['custom_from'] = nil

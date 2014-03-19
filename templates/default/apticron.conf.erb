@@ -11,14 +11,14 @@ EMAIL=<%= @config['email'] %>
 # are no differences, no output/email will be generated. By default, apticron
 # will output everything that needs to be upgraded.
 #
-# DIFF_ONLY="1"
+DIFF_ONLY="<%= @config['diff_only'] %>"
 
 #
 # Set LISTCHANGES_PROFILE if you would like apticron to invoke apt-listchanges
 # with the --profile option. You should add a corresponding profile to
 # /etc/apt/listchanges.conf
 #
-# LISTCHANGES_PROFILE="apticron"
+LISTCHANGES_PROFILE="<%= @config['listchanges_profile'] %>"
 
 #
 # From hostname manpage: "Displays  all FQDNs of the machine. This option
@@ -29,35 +29,37 @@ EMAIL=<%= @config['email'] %>
 # name, therefore the output may contain duplicate entries. Do not make any
 # assumptions about the order of the output."
 #
-# ALL_FQDNS="1"
+ALL_FQDNS="<%= @config['all_fqdns'] %>"
 
 #
 # Set SYSTEM if you would like apticron to use something other than the output
 # of "hostname -f" for the system name in the mails it generates. This option
 # overrides the ALL_FQDNS above.
 #
-# SYSTEM="foobar.example.com"
+SYSTEM="<%= @config['system'] %>"
 
 #
 # Set IPADDRESSNUM if you would like to configure the maximal number of IP
 # addresses apticron displays. The default is to display 1 address of each
 # family type (inet, inet6), if available.
 #
-# IPADDRESSNUM="1"
+IPADDRESSNUM="<%= @config['ipaddressnum'] %>"
 
 #
 # Set IPADDRESSES to a whitespace separated list of reachable addresses for
 # this system. By default, apticron will try to work these out using the
 # "ip" command
 #
-# IPADDRESSES="192.0.2.1 2001:db8:1:2:3::1"
+<% if @config['ipaddresses'] %>
+IPADDRESSES="<%= @config['ipaddresses'] %>"
+<% end -%>
 
 #
 # Set NOTIFY_HOLDS="0" if you don't want to be notified about new versions of
 # packages on hold in your system. The default behavior is downloading and
 # listing them as any other package.
 #
-# NOTIFY_HOLDS="0"
+NOTIFY_HOLDS="<%= @config['notify_holds'] %>"
 
 #
 # Set NOTIFY_NEW="0" if you don't want to be notified about packages which
@@ -68,13 +70,13 @@ EMAIL=<%= @config['email'] %>
 # so they will be listed in dist-upgrade output. Please take a look at
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=531002#44
 #
-# NOTIFY_NEW="0"
+NOTIFY_NEW="<%= @config['notify_new'] %>"
 
 #
 # Set NOTIFY_NO_UPDATES="0" if you don't want to be notified when there is no
 # new versions. Set to 1 could assure you that apticron works well.
 #
-# NOTIFY_NO_UPDATES="0"
+NOTIFY_NO_UPDATES="<%= @config['notify_no_updates'] %>"
 
 #
 # Set CUSTOM_SUBJECT if you want to replace the default subject used in
@@ -82,7 +84,9 @@ EMAIL=<%= @config['email'] %>
 # If you want to use internal vars please use single quotes here. Ex:
 # $CUSTOM_SUBJECT='[apticron] $SYSTEM: $NUM_PACKAGES package update(s)'
 #
-# CUSTOM_SUBJECT=""
+<% if @config['custom_subject'] -%>
+CUSTOM_SUBJECT="<%= @config['custom_subject'] %>"
+<% end -%>
 
 # Set CUSTOM_NO_UPDATES_SUBJECT if you want to replace the default subject used
 # in the no update notification e-mails. This may help filtering/sorting
@@ -90,11 +94,15 @@ EMAIL=<%= @config['email'] %>
 # If you want to use internal vars please use single quotes here. Ex:
 # $CUSTOM_NO_UPDATES_SUBJECT='[apticron] $SYSTEM: no updates'
 #
-# CUSTOM_NO_UPDATES_SUBJECT=""
+<% if @config['custom_no_updates_subject'] -%>
+CUSTOM_NO_UPDATES_SUBJECT="<%= @config['custom_no_updates_subject'] %>"
+<% end -%>
 
 #
 # Set CUSTOM_FROM if you want to replace the default sender by changing the
 # 'From:' field used in the notification e-mails. Your default sender will
 # be something like root@nsa.gov.
 #
-# CUSTOM_FROM=""
+<% if @config['custom_from'] -%>
+CUSTOM_FROM="<%= @config['custom_from'] %>"
+<% end -%>
