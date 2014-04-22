@@ -1,6 +1,7 @@
 # Apticron Cookbook
 
 [![Build Status](https://travis-ci.org/gregf/cookbook-apticron.png?branch=master)](https://travis-ci.org/gregf/cookbook-apticron)
+[![Cookbook Version](https://img.shields.io/cookbook/v/apticron.svg)](https://community.opscode.com/cookbooks/apticron)
 
 Provides a chef cookbook that installs [apticron](http://www.debian-administration.org/articles/491).
 
