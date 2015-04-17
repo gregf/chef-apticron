@@ -3,14 +3,7 @@ require 'rubocop/rake_task'
 require 'foodcritic'
 require 'kitchen'
 require 'stove/rake_task'
-
-# Cookbook Releases
-Stove::RakeTask.new do |_stove|
-  #  stove.git = true
-  #  stove.changelog = false
-  #  stove.bump = false
-  #  stove.dev = false
-end
+Stove::RakeTask.new
 
 # Style tests. Rubocop and Foodcritic
 namespace :style do
