@@ -1,6 +1,6 @@
 # Apticron Cookbook
 
-[![Build Status](https://travis-ci.org/gregf/cookbook-apticron.png?branch=master)](https://travis-ci.org/gregf/cookbook-apticron)
+[![Build Status](https://travis-ci.org/gregf/chef-apticron.png?branch=master)](https://travis-ci.org/gregf/chef-apticron)
 [![Cookbook Version](https://img.shields.io/cookbook/v/apticron.svg)](https://community.opscode.com/cookbooks/apticron)
 
 Provides a chef cookbook that installs [apticron](http://www.debian-administration.org/articles/491).
@@ -26,7 +26,7 @@ Install the cookbook using knife:
 
 Or install the cookbook from github:
 
-    $ git clone git://github.com/gregf/cookbook-apticron.git cookbooks/apticron
+    $ git clone git://github.com/gregf/chef-apticron.git cookbooks/apticron
     $ rm -rf cookbooks/apticron/.git
 
 Or use the [knife-github-cookbooks](https://github.com/websterclay/knife-github-cookbooks) plugin:

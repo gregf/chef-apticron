@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'apticron::default' do
   context 'install apticron defaults' do
     let(:chef_run) do
-      ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+      ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |_node|
       end.converge(described_recipe)
     end
     let(:apticron) { chef_run.node['apticron'] }

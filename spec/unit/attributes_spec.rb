@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'apticron attributes' do
   let(:chef_run) do
-    ChefSpec::Runner.new(:platform => 'debian', :version  => '7.0') do |node|
+    ChefSpec::SoloRunner.new(:platform => 'debian', :version  => '7.0') do |node|
       node.automatic['fqdn'] = '2014.oaklandraiders.com'
     end.converge('apticron::default')
   end
